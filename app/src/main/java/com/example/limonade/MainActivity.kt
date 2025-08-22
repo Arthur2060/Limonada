@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -97,6 +98,12 @@ fun InteractiveImage(modifier: Modifier = Modifier) {
         3 -> R.drawable.lemon_drink
         else -> {R.drawable.lemon_restart}
     }
+    val messageState = when (state) {
+        1 -> "Colha o limão"
+        2 -> "Esprema o limão ${squezing} vezes"
+        3 -> "Beba"
+        else -> "Repita"
+    }
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -112,7 +119,7 @@ fun InteractiveImage(modifier: Modifier = Modifier) {
                         state++
                     }
                     2 -> {
-                        if (squezing == 0) {
+                        if (squezing == 1) {
                             state++
                             squezing = (2..4).random()
                         } else {
@@ -146,6 +153,11 @@ fun InteractiveImage(modifier: Modifier = Modifier) {
             }
 
         }
+        Text(
+            text = messageState,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        )
     }
 
 
